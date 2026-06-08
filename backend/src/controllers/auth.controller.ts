@@ -32,9 +32,12 @@ export const signup = async (req: Request, res: Response) => {
     });
     if (newUser) {
       generateToken(newUser.id, res);
-      return res
-        .status(201)
-        .json({ message: 'User created successfully', user: newUser });
+      res.status(200).json({
+        id: newUser.id,
+        fullName: newUser.fullName,
+        username: newUser.username,
+        profilePic: newUser.profilePic,
+      });
     }
     return res.status(400).json({ error: 'Invalid user data' });
   } catch (error) {
@@ -58,7 +61,12 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
     generateToken(user.id, res);
-    res.status(200).json({ message: 'Login successful', user });
+    res.status(200).json({
+      id: user.id,
+      fullName: user.fullName,
+      username: user.username,
+      profilePic: user.profilePic,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
