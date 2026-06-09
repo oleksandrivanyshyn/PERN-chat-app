@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext.tsx';
+import toast from 'react-hot-toast';
 
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,9 @@ const useLogout = () => {
         throw new Error(data.error);
       }
       setAuthUser(null);
-    } catch (error) {
-      console.error('Error signing up:', error);
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

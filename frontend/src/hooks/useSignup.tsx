@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext.tsx';
+import toast from 'react-hot-toast';
 
-type SingupInputs = {
+type SignupInputs = {
   fullName: string;
   username: string;
   password: string;
@@ -12,7 +13,7 @@ type SingupInputs = {
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
-  const signup = async (inputs: SingupInputs) => {
+  const signup = async (inputs: SignupInputs) => {
     try {
       setLoading(true);
       const res = await fetch('/api/auth/signup', {
@@ -25,8 +26,9 @@ const useSignup = () => {
         throw new Error(data.error);
       }
       setAuthUser(data);
-    } catch (error) {
-      console.error('Error signing up:', error);
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
