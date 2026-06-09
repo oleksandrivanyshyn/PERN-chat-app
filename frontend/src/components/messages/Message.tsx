@@ -1,9 +1,15 @@
-const Message = ({ message }: { message?: any }) => {
-  const fromMe = message.fromMe;
+import { useAuthContext } from '../../contexts/AuthContext.tsx';
+import useConversation, {
+  type MessageType,
+} from '../../zustand/useConversation.ts';
+import { extractTime } from '../../utils/extractTime.ts';
+
+const Message = ({ message }: { message: MessageType }) => {
+  const { authUser } = useAuthContext();
+  const fromMe = message?.senderId === authUser?.id;
   const chatClass = fromMe ? 'chat-end' : 'chat-start';
-  const img = fromMe
-    ? 'https://avatar.iran.liara.run/public/boy?username=johndoe'
-    : 'https://avatar.iran.liara.run/public/boy?username=janedoe';
+  const { selectedConversation } = useConversation();
+  const img = fromMe ? authUser?.profilePic : selectedConversation?.profilePic;
 
   const bubbleBg = fromMe ? 'bg-blue-500' : '';
   return (
@@ -17,7 +23,7 @@ const Message = ({ message }: { message?: any }) => {
         {message.body}
       </p>
       <span className="chat-footer opacity-50 text-xs flex gap-1 items-center text-white">
-        22:59
+        ${extractTime(message.createdAt)}
       </span>
     </div>
   );
