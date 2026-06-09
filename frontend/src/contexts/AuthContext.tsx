@@ -5,6 +5,7 @@ import {
   createContext,
   useState,
   useEffect,
+  useContext,
 } from 'react';
 
 type AuthUserType = {
@@ -24,7 +25,7 @@ const AuthContext = createContext<{
   setAuthUser: () => {},
   isLoading: true,
 });
-
+export const useAuthContext = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [authUser, setAuthUser] = useState<AuthUserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
