@@ -68,6 +68,7 @@ export const login = async (req: Request, res: Response) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
+    console.error('Error in login controller:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -76,6 +77,7 @@ export const logout = (req: Request, res: Response) => {
     res.cookie('jwt', '', { maxAge: 0 });
     res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
+    console.error('Error in logout controller:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -92,6 +94,7 @@ export const getMe = async (req: Request, res: Response) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
+    console.error('Error in getMe controller:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
