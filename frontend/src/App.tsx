@@ -5,7 +5,7 @@ import Login from './pages/Login.tsx';
 import { useAuthContext } from './contexts/AuthContext.tsx';
 
 function App() {
-  const { authUser, setAuthUser, isLoading } = useAuthContext();
+  const { authUser, isLoading } = useAuthContext();
   if (isLoading) return null;
 
   return (
