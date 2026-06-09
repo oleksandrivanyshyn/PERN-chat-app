@@ -89,7 +89,7 @@ export const getUsersForSidebar = async (req: Request, res: Response) => {
       },
       select: {
         id: true,
-        username: true,
+        fullName: true,
         profilePic: true,
       },
     });
