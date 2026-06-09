@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/prisma.js';
+import { getReceiverSocketId, io } from '../socket/socket.js';
 export const sendMessage = async (
   req: Request<{ id: string }>,
   res: Response,
@@ -39,7 +40,11 @@ export const sendMessage = async (
         conversationId: conversation.id,
       },
     });
+    const receiverSocketId = getReceiverSocketId(receiverId);
 
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit('newMessage', newMessage);
+    }
     return res.status(201).json(newMessage);
   } catch (error) {
     console.error('Error in sendMessage controller:', error);

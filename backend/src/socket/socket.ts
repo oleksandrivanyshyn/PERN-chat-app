@@ -9,6 +9,7 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   },
 });
+export const getReceiverSocketId = (userId: string) => userSocketMap[userId];
 const userSocketMap: Record<string, string> = {};
 io.on('connection', (socket) => {
   const userId = socket.handshake.query.userId as string;
