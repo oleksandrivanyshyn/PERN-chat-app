@@ -8,7 +8,7 @@ const Messages = () => {
   useListenMessages();
   const ref = useChatScroll(messages) as React.MutableRefObject<HTMLDivElement>;
   return (
-    <div className="px-4 flex-1 overflow-auto">
+    <div className="px-4 flex-1 overflow-auto" ref={ref}>
       {messages.map((message) => (
         <Message key={message.id} message={message} />
       ))}
