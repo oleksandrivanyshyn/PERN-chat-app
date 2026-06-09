@@ -4,7 +4,7 @@ const app = express();
 import authRoutes from './routes/auth.route.js';
 import messagesRoutes from './routes/message.route.js';
 import dotnev from 'dotenv';
-
+const PORT = process.env.PORT || 5000;
 dotnev.config();
 app.use(cookieParser());
 app.use(express.json());
